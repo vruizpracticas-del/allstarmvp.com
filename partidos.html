@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Próximos Partidos</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      height: 100vh;
+      background: linear-gradient(135deg, #000000, #8B0000);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .back-button {
+      margin-top: 25px;
+      background: linear-gradient(45deg, #ff0000, #8b0000);
+      color: #fff;
+      padding: 10px 25px;
+      border-radius: 50px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 0 12px rgba(255, 0, 0, 0.6);
+      transition: all 0.3s ease;
+      font-size: 15px;
+      cursor: pointer;
+      border: none;
+    }
+
+    .back-button:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 20px #ff4d4d;
+    }
+
+    h1 {
+      color: #ff4d4d;
+      text-shadow: 2px 2px 6px rgba(255,0,0,0.6);
+      margin: 15px 0 10px;
+      text-align: center;
+      font-size: 1.6rem;
+    }
+
+    .partidos {
+      width: 90%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 10px;
+      overflow-y: auto;
+      padding-bottom: 80px;
+    }
+
+    .partidos::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .partidos::-webkit-scrollbar-thumb {
+      background: #ff0000;
+      border-radius: 3px;
+    }
+
+    .partido {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 15px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .partido:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+    }
+
+    .equipos {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      margin-bottom: 10px;
+    }
+
+    .equipo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .equipo img {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 5px;
+      box-shadow: 0 0 6px rgba(255, 0, 0, 0.4);
+    }
+
+    .equipo span {
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .vs {
+      font-size: 1rem;
+      color: #ff4d4d;
+      font-weight: bold;
+      text-shadow: 0 0 6px red;
+    }
+
+    .partido p {
+      font-size: 0.9rem;
+      margin-top: 5px;
+      color: #ffcccc;
+    }
+
+    .bottom-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #000;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 8px 0;
+      border-top: 2px solid red;
+      height: 65px;
+    }
+
+    .bottom-nav a {
+      color: #fff;
+      text-decoration: none;
+      text-align: center;
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: color 0.3s ease;
+    }
+
+    .bottom-nav a:hover {
+      color: #ff4d4d;
+    }
+
+    .bottom-nav img {
+      width: 22px;
+      height: 22px;
+      margin-bottom: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="back-button" onclick="window.location.href='index.html'">← Atrás</button>
+
+  <h1>📅 Próximos Partidos</h1>
+
+  <div class="partidos">
+    <div class="partido">
+      <div class="equipos">
+        <div class="equipo">
+          <img src="logo-panthers copia.png" alt="Real Madrid">
+          <span>Real Madrid</span>
+        </div>
+        <span class="vs">VS</span>
+        <div class="equipo">
+          <img src="logo-panthers copia.png" alt="Barcelona">
+          <span>Barcelona</span>
+        </div>
+      </div>
+      <p>🏟️ 20/10/2025 - 18:00</p>
+    </div>
+
+    <div class="partido">
+      <div class="equipos">
+        <div class="equipo">
+          <img src="logo-panthers copia.png" alt="Manchester United">
+          <span>Manchester</span>
+        </div>
+        <span class="vs">VS</span>
+        <div class="equipo">
+          <img src="logo-panthers copia.png" alt="Liverpool">
+          <span>Liverpool</span>
+        </div>
+      </div>
+      <p>🏟️ 21/10/2025 - 20:00</p>
+    </div>
+
+    <div class="partido">
+      <div class="equipos">
+        <div class="equipo">
+          <img src="logo-panthers copia.png" alt="Warriors">
+          <span>Warriors</span>
+        </div>
+        <span class="vs">VS</span>
+        <div class="equipo">
+          <img src="logo-panthers copia.png" alt="Lakers">
+          <span>Lakers</span>
+        </div>
+      </div>
+      <p>🏟️ 22/10/2025 - 19:30</p>
+    </div>
+
+    <!-- NUEVOS PARTIDOS -->
+    <div class="partido">
+      <div class="equipos">
+        <div class="equipo">
+          <img src="logo-panthers copia.png" alt="Celtics">
+          <span>Celtics</span>
+        </div>
+        <span class="vs">VS</span>
+        <div class="equipo">
+          <img src="logo-panthers copia.png" alt="Heat">
+          <span>Heat</span>
+        </div>
+      </div>
+      <p>🏟️ 23/10/2025 - 21:00</p>
+    </div>
+
+    <div class="partido">
+      <div class="equipos">
+        <div class="equipo">
+          <img src="logo-panthers copia.png" alt="Nets">
+          <span>Nets</span>
+        </div>
+        <span class="vs">VS</span>
+        <div class="equipo">
+          <img src="logo-panthers copia.png" alt="Bulls">
+          <span>Bulls</span>
+        </div>
+      </div>
+      <p>🏟️ 24/10/2025 - 18:45</p>
+    </div>
+
+    <div class="partido">
+      <div class="equipos">
+        <div class="equipo">
+          <img src="logo-panthers copia.png" alt="Panthers">
+          <span>Panthers</span>
+        </div>
+        <span class="vs">VS</span>
+        <div class="equipo">
+          <img src="logo-panthers copia.png" alt="Tigers">
+          <span>Tigers</span>
+        </div>
+      </div>
+      <p>🏟️ 25/10/2025 - 17:00</p>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="index.html"><img src="https://img.icons8.com/ios-filled/50/ffffff/home.png"/>Inicio</a>
+    <a href="clasificacion.html"><img src="https://img.icons8.com/ios-filled/50/ffffff/combo-chart.png"/>Clasificación</a>
+    <a href="estadisticas.html"><img src="https://img.icons8.com/ios-filled/50/ffffff/bar-chart.png"/>Estadísticas</a>
+    <a href="partidos.html"><img src="https://img.icons8.com/ios-filled/50/ffffff/calendar.png"/>Partidos</a>
+    <a href="votaciones.html"><img src="https://img.icons8.com/ios-filled/50/ffffff/ballot.png"/>Votaciones</a>
+  </nav>
+
+</body>
+</html>

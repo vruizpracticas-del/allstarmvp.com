@@ -1,0 +1,151 @@
+/* --- ESTILO GENERAL --- */
+body {
+  margin: 0;
+  font-family: 'Poppins', 'Arial', sans-serif;
+  background: linear-gradient(135deg, #000000, #8B0000);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 80px;
+  width: 100%;
+  max-width: 1400px;
+  box-sizing: border-box;
+}
+
+/* --- TEXTO --- */
+.texto {
+  max-width: 600px;
+}
+
+.texto h1 {
+  color: #ff4d4d;
+  text-shadow: 2px 2px 6px rgba(255,0,0,0.6);
+  font-size: clamp(28px, 6vw, 48px);
+  margin-bottom: 10px;
+}
+
+.texto h2 {
+  color: #ffffff;
+  font-size: clamp(20px, 4vw, 32px);
+  margin-bottom: 10px;
+}
+
+.texto p {
+  font-size: clamp(14px, 3vw, 18px);
+  margin-bottom: 30px;
+}
+
+/* --- BOTONES --- */
+.button {
+  display: inline-block;
+  background: #ff4d4d;
+  color: #fff;
+  padding: 12px 28px;
+  margin: 8px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background: #b30000;
+  transform: translateY(-3px);
+  box-shadow: 0 0 15px rgba(255,0,0,0.5);
+}
+
+/* --- IMAGEN LATERAL --- */
+.imagen {
+  width: 400px;
+  max-width: 45%;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
+  transition: transform 0.3s ease;
+}
+
+.imagen:hover {
+  transform: scale(1.03);
+}
+
+/* --- RESPONSIVE TABLET --- */
+@media (max-width: 1024px) {
+  .container {
+    padding: 40px 40px;
+  }
+
+  .texto {
+    max-width: 500px;
+  }
+
+  .imagen {
+    width: 320px;
+  }
+}
+
+/* --- RESPONSIVE MÓVIL --- */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 20px;
+    gap: 30px;
+  }
+
+  .imagen {
+    order: -1; /* Mueve la imagen arriba */
+    width: 70%;
+    max-width: 300px;
+  }
+
+  .texto h1 {
+    font-size: 32px;
+  }
+
+  .texto h2 {
+    font-size: 22px;
+  }
+
+  .button {
+    width: 80%;
+    padding: 14px;
+  }
+}
+/* Estilo general: los botones se apilan (como ya tienes) */
+
+/* Solo en pantallas grandes, los botones estarán en línea */
+@media (min-width: 1024px) {
+    .texto {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .texto .button {
+        margin-right: 15px;
+    }
+
+    /* Agrupa los botones en una sola fila */
+    .texto .button:nth-child(4) {
+        display: inline-block;
+    }
+
+    /* Coloca todos los botones en línea */
+    .texto a.button {
+        display: inline-block;
+    }
+
+    /* Ajuste extra: deja algo de espacio inferior */
+    .texto a.button:last-child {
+        margin-bottom: 10px;
+    }
+}

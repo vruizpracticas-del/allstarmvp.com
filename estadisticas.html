@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estadísticas del Torneo</title>
+  <style>
+    /* Tu CSS existente... */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Arial', sans-serif;
+      height: 100vh;
+      background: linear-gradient(135deg, #000000, #8B0000);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+    }
+    .back-button {
+      margin-top: 25px;
+      background: linear-gradient(45deg, #ff0000, #8b0000);
+      color: #fff;
+      padding: 10px 25px;
+      border-radius: 50px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 0 12px rgba(255, 0, 0, 0.6);
+      transition: all 0.3s ease;
+      font-size: 15px;
+      cursor: pointer;
+      border: none;
+    }
+    .back-button:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 20px #ff4d4d;
+    }
+    h1 {
+      color: #ff4d4d;
+      text-shadow: 2px 2px 6px rgba(255,0,0,0.6);
+      margin: 15px 0 10px;
+      text-align: center;
+      font-size: 1.6rem;
+    }
+    .buscador-container {
+      width: 90%;
+      max-width: 400px;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    #buscador {
+      width: 100%;
+      padding: 8px 14px;
+      border-radius: 30px;
+      border: none;
+      background-color: #1a0000;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      box-shadow: 0 0 6px red;
+      transition: all 0.3s ease;
+    }
+    #buscador:focus {
+      box-shadow: 0 0 10px #ff1a1a;
+      transform: scale(1.02);
+    }
+    .equipos-container, .jugadores-container {
+      width: 90%;
+      max-width: 600px;
+      display: grid;
+      justify-content: center;
+      align-items: start;
+      transform: translateY(5px);
+      padding-bottom: 20px;
+    }
+    .equipos-container { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .jugadores-container { grid-template-columns: repeat(4, 1fr); gap: 10px; transform: translateY(10px); max-height: 70vh; overflow-y: auto; padding-right: 5px; }
+    .jugadores-container::-webkit-scrollbar { width: 6px; }
+    .jugadores-container::-webkit-scrollbar-thumb { background: #ff0000; border-radius: 3px; }
+    .equipo-card, .jugador-card {
+      background: rgba(0,0,0,0.6);
+      padding: 8px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 0 8px rgba(255,0,0,0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .equipo-card:hover, .jugador-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 12px rgba(255,0,0,0.6);
+    }
+    .equipo-card img, .jugador-card img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      margin-bottom: 5px;
+      object-fit: cover;
+      box-shadow: 0 0 6px rgba(255,0,0,0.3);
+    }
+    .equipo-card h3, .jugador-card h3 { font-size: 0.8rem; margin-bottom: 3px; }
+    .ver-jugadores {
+      background: linear-gradient(45deg, #ff0000, #8b0000);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 3px 8px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 3px;
+    }
+    .ver-jugadores:hover { background: linear-gradient(45deg, #ff4d4d, #ff0000); box-shadow: 0 0 10px red; }
+    .jugador-card { padding: 6px; font-size: 0.8rem; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .jugador-card p { margin: 2px 0 0; font-size: 0.7rem; }
+    .bottom-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #000;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 8px 0;
+      border-top: 2px solid red;
+      height: 65px;
+    }
+    .bottom-nav a { color: #fff; text-decoration: none; text-align: center; font-size: 11px; display: flex; flex-direction: column; align-items: center; transition: color 0.3s ease; }
+    .bottom-nav a:hover { color: #ff4d4d; }
+    .bottom-nav img { width: 22px; height: 22px; margin-bottom: 3px; }
+    @media (max-width: 768px) { .jugadores-container { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 480px) { .jugadores-container { grid-template-columns: repeat(2, 1fr); } }
+  </style>
+</head>
+<body>
+
+  <button class="back-button" id="btnAtras">← Atrás</button>
+  <h1>📊 Estadísticas del Torneo de Baloncesto</h1>
+
+  <div class="buscador-container">
+    <input type="text" id="buscador" placeholder="Buscar equipo..." />
+  </div>
+
+  <div class="equipos-container" id="equiposContainer"></div>
+  <div class="jugadores-container" id="jugadoresContainer" style="display:none;"></div>
+
+  <nav class="bottom-nav">
+    <a href="index.html"><img src="https://img.icons8.com/ios-filled/50/ffffff/home.png"/>Inicio</a>
+    <a href="clasificacion.html"><img src="https://img.icons8.com/ios-filled/50/ffffff/combo-chart.png"/>Clasificación</a>
+    <a href="estadisticas.html"><img src="https://img.icons8.com/ios-filled/50/ffffff/bar-chart.png"/>Estadísticas</a>
+    <a href="partidos.html"><img src="https://img.icons8.com/ios-filled/50/ffffff/calendar.png"/>Partidos</a>
+    <a href="votaciones.html"><img src="https://img.icons8.com/ios-filled/50/ffffff/ballot.png"/>Votaciones</a>
+  </nav>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <script>
+    const equiposContainer = document.getElementById("equiposContainer");
+    const jugadoresContainer = document.getElementById("jugadoresContainer");
+    const buscador = document.getElementById("buscador");
+    const btnAtras = document.getElementById("btnAtras");
+
+    let equipos = {};
+    let modoActual = "equipos";
+    let equipoActual = "";
+
+    // ---------------- URL de tu Google Sheet ----------------
+    const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQL0IIWXMHm8J_cnyAsSw0oZtQr1plE7CgL5zIEu1Ir1cz4NwLWtq7YXUcmtfYLxX8Uf_GJGfLS7pvP/pub?gid=0&single=true&output=csv";
+
+    // ---------------- Cargar datos desde Google Sheets ----------------
+    function cargarDatos() {
+      Papa.parse(sheetURL, {
+        download: true,
+        header: true,
+        complete: function(results) {
+          const data = results.data;
+          let nuevosEquipos = {};
+          data.forEach(row => {
+            if (!row.Equipo) return; // ignora filas vacías
+            if (!nuevosEquipos[row.Equipo]) nuevosEquipos[row.Equipo] = [];
+            nuevosEquipos[row.Equipo].push({
+              nombre: row.Nombre,
+              puntos: parseInt(row.Puntos) || 0,
+              asistencias: parseInt(row.Asistencias) || 0,
+              rebotes: parseInt(row.Rebotes) || 0,
+              img: row.Imagen || "https://via.placeholder.com/45"
+            });
+          });
+          equipos = nuevosEquipos;
+          mostrarEquipos();
+          console.log("🔄 Datos cargados desde Google Sheets");
+        },
+        error: function(err) {
+          console.error("Error cargando datos de Sheets:", err);
+        }
+      });
+    }
+
+    // Cargar datos iniciales
+    cargarDatos();
+
+    // Refrescar cada 10 segundos
+    setInterval(cargarDatos, 10000);
+
+    function mostrarEquipos() {
+      modoActual = "equipos";
+      jugadoresContainer.style.display = "none";
+      equiposContainer.style.display = "grid";
+      equiposContainer.innerHTML = "";
+
+      Object.keys(equipos).forEach(nombre => {
+        const card = document.createElement("div");
+        card.className = "equipo-card";
+        card.innerHTML = `
+          <img src="${equipos[nombre][0].img}" alt="${nombre}">
+          <h3>${nombre}</h3>
+          <button class="ver-jugadores">Ver jugadores</button>
+        `;
+        card.querySelector(".ver-jugadores").addEventListener("click", () => mostrarJugadores(nombre));
+        equiposContainer.appendChild(card);
+      });
+
+      buscador.placeholder = "Buscar equipo...";
+      buscador.value = "";
+    }
+
+    function mostrarJugadores(nombre) {
+      modoActual = "jugadores";
+      equipoActual = nombre;
+
+      equiposContainer.style.display = "none";
+      jugadoresContainer.style.display = "grid";
+      jugadoresContainer.innerHTML = "";
+
+      equipos[nombre].forEach(jugador => {
+        const card = document.createElement("div");
+        card.className = "jugador-card";
+        card.innerHTML = `
+          <img src="${jugador.img}" alt="${jugador.nombre}">
+          <h3>${jugador.nombre}</h3>
+          <p>🏀 ${jugador.puntos} pts</p>
+          <p>🤝 ${jugador.asistencias} ast</p>
+          <p>🛡️ ${jugador.rebotes} reb</p>
+        `;
+        jugadoresContainer.appendChild(card);
+      });
+
+      buscador.placeholder = `Buscar jugador en ${nombre}...`;
+      buscador.value = "";
+    }
+
+    buscador.addEventListener("keyup", () => {
+      const texto = buscador.value.toLowerCase();
+      const cards = modoActual === "equipos" ? ".equipo-card" : ".jugador-card";
+      document.querySelectorAll(cards).forEach(card => {
+        const nombre = card.querySelector("h3").textContent.toLowerCase();
+        card.style.display = nombre.includes(texto) ? "block" : "none";
+      });
+    });
+
+    btnAtras.addEventListener("click", () => {
+      if (modoActual === "jugadores") mostrarEquipos();
+      else window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
